@@ -8,4 +8,5 @@ import com.example.adarsh.domain.Role;
 
 public interface RoleRepository extends JpaRepository<Role, Serializable> {
 
+	
 }

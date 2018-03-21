@@ -1,16 +1,12 @@
 package com.example.adarsh.domain;
 
-import java.util.Date;
-import java.util.List;
-
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class User {
@@ -19,18 +15,24 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String userName;
-	private Integer phoneNumber;
+	private String phoneNumber;
 	private Boolean isActive;
 	private String country;
-	private Date date;
+	private String date;
+	private String email;
+	private String password;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "security_id")
-	Security security;
-	@OneToMany
-	List<Role> role;
-	@OneToMany
-	List<UserAddress> userAddress;
+	public Role getRole() {
+		return role;
+	}
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
+	@ManyToOne
+	@JsonBackReference
+	private Role role;
 
 	public Long getId() {
 		return id;
@@ -48,11 +50,11 @@ public class User {
 		this.userName = userName;
 	}
 
-	public Integer getPhoneNumber() {
+	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
-	public void setPhoneNumber(Integer phoneNumber) {
+	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
@@ -72,36 +74,28 @@ public class User {
 		this.country = country;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 
-	public List<Role> getRole() {
-		return role;
+	public String getEmail() {
+		return email;
 	}
 
-	public void setRole(List<Role> role) {
-		this.role = role;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
-	public Security getSecurity() {
-		return security;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setSecurity(Security security) {
-		this.security = security;
-	}
-
-	public List<UserAddress> getUserAddress() {
-		return userAddress;
-	}
-
-	public void setUserAddress(List<UserAddress> userAddress) {
-		this.userAddress = userAddress;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
